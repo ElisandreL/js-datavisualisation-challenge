@@ -16,11 +16,14 @@ let data = [];
 let a = 59;
 let b = 60;
 
+
+
+
 // get the data from the DOM (years, prisons population & country)
 function fillArrays() {
     table2Td.forEach(e => {
         if (isNaN(e.innerHTML)) {
-            dataCountry.push(e.innerHTML);
+            dataCountry.push(e.innerHTML.replace("<br>", ""));
         } else {
             dataPrisPop.push(e.innerHTML);
         }
@@ -42,26 +45,14 @@ function fillArrays() {
         data.push(myObject);
         a-=2;
         b-=2;
-        
     }
-    
-    
-    // dataCountry.forEach(e => {
-    //     let myObject = new Object();
-    //     myObject["Country"] = e;
-    //     myObject["prisonYearOne"] = dataPrisPop[a];
-    //     myObject["prisonYearTwo"] = dataPrisPop[b];
-    //     data.push(myObject);
-    //     a+=2;
-    //     b+=2;
-    // });
-}
+    }
 fillArrays()
 
 data.forEach(d => d.prisonYearOne = +d.prisonYearOne)
 data.forEach(d => d.prisonYearTwo = +d.prisonYearTwo)
-
-
+    
+    
 let divTable2 = document.createElement("div");
 divTable2.setAttribute("id", "divTable2");
 let table2 = document.getElementById("table2");
