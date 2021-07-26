@@ -13,8 +13,8 @@ let dataCountry = [];
 let dataG = [];
 
 
-let a = 59;
-let b = 60;
+let aG = 59;
+let bG = 60;
 
 
 
@@ -40,11 +40,11 @@ function fillArrays() {
     for (let i = dataCountry.length-1; i >= 0; i--) {
         let myObject = new Object();
         myObject["Country"] = dataCountry[i];
-        myObject["prisonYearOne"] = dataPrisPop[a];
-        myObject["prisonYearTwo"] = dataPrisPop[b];
+        myObject["prisonYearOne"] = dataPrisPop[aG];
+        myObject["prisonYearTwo"] = dataPrisPop[bG];
         dataG.push(myObject);
-        a-=2;
-        b-=2;
+        aG-=2;
+        bG-=2;
     }
     }
 fillArrays()
@@ -59,30 +59,30 @@ let table2 = document.getElementById("table2");
 let tagBefore = document.getElementById("mw-content-text");
 tagBefore.insertBefore(divTable2, table2)
 
-const svg = d3.select("#divTable2").append("svg");
-svg.attr("width", "800")
+const svgG = d3.select("#divTable2").append("svg");
+svgG.attr("width", "800")
     .attr("height", "500")
 
 const width = "800";
 const height = "500";
-const margin = {top: 25, right: 20, bottom: 38, left: 136};
-const innerWidth = width - margin.left - margin.right;
-const innerHeight = height - margin.top - margin.bottom;
+const marginG = {top: 25, right: 20, bottom: 38, left: 136};
+const innerWidthG = width - marginG.left - marginG.right;
+const innerHeightG = height - marginG.top - marginG.bottom;
 
-const xScale = d3.scaleLinear()
+const xScaleG = d3.scaleLinear()
     .domain([0, d3.max(dataG, d => d.prisonYearOne)])
-    .range([0, innerWidth]);
+    .range([0, innerWidthG]);
 
-const yScale = d3.scaleBand()
+const yScaleG = d3.scaleBand()
     .domain(dataG.map(d => d.Country))
-    .range([0, innerHeight])
+    .range([0, innerHeightG])
     .padding(0.1);
     
-const g = svg.append("g")
-    .attr("transform", `translate(${margin.left},${margin.top})`);
+const gG = svgG.append("g")
+    .attr("transform", `translate(${marginG.left},${marginG.top})`);
 
-const yAxisG = g.append("g")
-    .call(d3.axisLeft(yScale))
+const yAxisG = gG.append("g")
+    .call(d3.axisLeft(yScaleG))
     .selectAll(".domain, .tick line")
     .remove();
 
@@ -92,9 +92,9 @@ const yAxisG = g.append("g")
 //     .attr("y", innerHeight / 2)
 //     .append("text");
 
-const xAxisG = g.append("g")
-    .call(d3.axisBottom(xScale))
-    .attr("transform", `translate(0,${innerHeight})`)
+const xAxisG = gG.append("g")
+    .call(d3.axisBottom(xScaleG))
+    .attr("transform", `translate(0,${innerHeightG})`)
     .attr("color", "red");
 
 // xAxisG.selectAll("line")
@@ -102,12 +102,12 @@ const xAxisG = g.append("g")
 
 xAxisG.select(".domain").remove();
 
-g.selectAll("text")
+gG.selectAll("text")
     .attr("color", "darkgreen");
 
 xAxisG.select("text")
     .text("Prison population, average")
-    .attr("x", innerWidth / 2)
+    .attr("x", innerWidthG / 2)
     .attr("y", 25)
     .attr("font-size", ".8rem")
     .attr("color", "black")
@@ -115,25 +115,25 @@ xAxisG.select("text")
     .append("text");
 
 xAxisG.selectAll("line")
-    .attr("y2", -innerHeight)
+    .attr("y2", -innerHeightG)
     
-g.selectAll("rect")
+gG.selectAll("rect")
     .data(dataG)
     .enter().append("rect")
-        .attr("y", d => yScale(d.Country))
-        .attr("width", d => xScale(d.prisonYearOne))
-        .attr("height", yScale.bandwidth())
+        .attr("y", d => yScaleG(d.Country))
+        .attr("width", d => xScaleG(d.prisonYearOne))
+        .attr("height", yScaleG.bandwidth())
         .attr("fill", "steelblue");
 
     
-g.append("text")
+gG.append("text")
     .attr("y", -10)
     .attr("font-weight", "900")
     .text("Prison population, average per year (per 100,000 inhabitants)")
     
     
     
-    const legend = g.append("g")
+    const legend = gG.append("g")
     .attr("transform", (dataYears, i) => `translate(0,${i * 20})`);
     
     legend.append("rect")
@@ -164,5 +164,5 @@ g.append("text")
     .text("2010-12")
     .attr("font-size", ".8em");
 
-g.selectAll("text")
+gG.selectAll("text")
     .attr("font-family", "sans-serif");
