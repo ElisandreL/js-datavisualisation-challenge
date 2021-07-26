@@ -4,7 +4,7 @@ tableTd = document.getElementById("table1").querySelectorAll("td");
 let tableTdData = [];
 let tableJavscCountry =[];
 let tableData =[];
-let data =[];
+let dataJ =[];
 let x =0;
 
 for (let i = 0; i<tableTd.length; i++) {
@@ -49,10 +49,10 @@ tableJavscCountry.forEach(e => {
        myObject[element] = tableData[a];
        a++;
    });
-   data.push(myObject);
+   dataJ.push(myObject);
  
 })
-console.log(data);
+console.log(dataJ);
 
 let div = document.createElement("div");
 div.setAttribute("id", "div")
@@ -86,11 +86,11 @@ let xScale = d3.scaleLinear()
 
 
  let yScale = d3.scaleBand()
-                 .domain(data.map(d => d.Country))
+                 .domain(dataJ.map(d => d.Country))
                  .range([0,innerHeight]);
                  
          
-console.log(d3.greatest(data));
+console.log(d3.greatest(dataJ));
 
   let svg = d3.select("#div")
                .append("svg")
@@ -114,7 +114,7 @@ const g = svg.append('g')
       .attr("transform", `translate(0,${innerHeight})`);
      
 let bars = svg.selectAll('rect')
-               .data(data)
+               .data(dataJ)
                .enter()
                .append('rect')
               

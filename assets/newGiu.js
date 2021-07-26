@@ -10,7 +10,7 @@ let dataYears = [];
 let dataPrisPop = [];
 
 let dataCountry = [];
-let data = [];
+let dataG = [];
 
 
 let a = 59;
@@ -42,15 +42,15 @@ function fillArrays() {
         myObject["Country"] = dataCountry[i];
         myObject["prisonYearOne"] = dataPrisPop[a];
         myObject["prisonYearTwo"] = dataPrisPop[b];
-        data.push(myObject);
+        dataG.push(myObject);
         a-=2;
         b-=2;
     }
     }
 fillArrays()
 
-data.forEach(d => d.prisonYearOne = +d.prisonYearOne)
-data.forEach(d => d.prisonYearTwo = +d.prisonYearTwo)
+dataG.forEach(d => d.prisonYearOne = +d.prisonYearOne)
+dataG.forEach(d => d.prisonYearTwo = +d.prisonYearTwo)
     
     
 let divTable2 = document.createElement("div");
@@ -70,11 +70,11 @@ const innerWidth = width - margin.left - margin.right;
 const innerHeight = height - margin.top - margin.bottom;
 
 const xScale = d3.scaleLinear()
-    .domain([0, d3.max(data, d => d.prisonYearOne)])
+    .domain([0, d3.max(dataG, d => d.prisonYearOne)])
     .range([0, innerWidth]);
 
 const yScale = d3.scaleBand()
-    .domain(data.map(d => d.Country))
+    .domain(dataG.map(d => d.Country))
     .range([0, innerHeight])
     .padding(0.1);
     
@@ -118,7 +118,7 @@ xAxisG.selectAll("line")
     .attr("y2", -innerHeight)
     
 g.selectAll("rect")
-    .data(data)
+    .data(dataG)
     .enter().append("rect")
         .attr("y", d => yScale(d.Country))
         .attr("width", d => xScale(d.prisonYearOne))
